@@ -8,11 +8,21 @@ router.get("/:username", async (req, res) => {
 
   try {
     const profileRes = await axios.get(
-      `https://api.github.com/users/${username}`
+      `https://api.github.com/users/${username}`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
+      }
     );
 
     const reposRes = await axios.get(
-      `https://api.github.com/users/${username}/repos`
+      `https://api.github.com/users/${username}/repos`,
+      {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
+        }
+      }
     );
 
     const profile = profileRes.data;
@@ -26,6 +36,7 @@ router.get("/:username", async (req, res) => {
     });
 
   } catch (error) {
+    console.error(error.response?.data || error.message);
     res.status(500).json({ error: "Error fetching GitHub data" });
   }
 });
