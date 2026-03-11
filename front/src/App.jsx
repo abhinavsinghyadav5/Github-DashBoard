@@ -38,7 +38,7 @@ function App() {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/github/${username}`
+        `https://github-dashboard-at6o.onrender.com/api/github/${username}`
       );
 
       setData(res.data);
